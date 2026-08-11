@@ -1,0 +1,647 @@
+/* ─────────────────────────────────────────────────────────────────
+   Flamboyant Ano 2 — Mesa da Sala de Vendas · layout e componentes
+
+   CSS puro, sem build. Só lê tokens `var(--fl-*)` / `var(--ab-*)` — nenhum
+   hex literal mora aqui. Cada tela monta o próprio cromo (wordmark,
+   hairlines, VOLTAR); não existe header/footer global.
+
+   Telas: splash · menu · viewer.
+   ─────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ═══ Escala raiz — 1rem = 1% da altura do viewport ═══════════════════
+   Todo o layout é medido em rem para permanecer proporcional à altura
+   física da tela. Num viewport de 1080px, 1rem = 10px e o desenho bate
+   1:1 com o PSD de 1920×1080; em qualquer outra altura escala junto. A
+   largura excedente em telas mais largas é absorvida pelas margens. */
+:root { font-size: calc(100vh / 108); }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background: var(--fl-bg);
+  overflow: hidden;
+  font-family: var(--fl-font-display);
+  font-weight: var(--fl-w-regular);
+  color: var(--fl-fg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* mesa é só toque — sem seleção, callout ou realce de tap */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  /* sem pinch-zoom, double-tap-zoom ou scroll elástico */
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+/* O vídeo é a única exceção: precisa dos gestos próprios para a barra
+   de tempo funcionar sob o dedo. */
+.pane__video { touch-action: auto; }
+
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+img, svg, video { display: block; }
+
+button:focus-visible,
+[data-action]:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+body[data-kiosk] { cursor: none; }
+body[data-kiosk] * { cursor: none !important; }
+
+/* ═══ Palco e cross-dissolve entre telas ══════════════════════════ */
+#stage-frame { position: fixed; inset: 0; }
+
+.screen-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--fl-bg);
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--fl-bg);
+  color: var(--fl-fg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--fl-fade) var(--fl-ease);
+}
+.screen.is-active  { opacity: 1; pointer-events: auto; }
+.screen.is-leaving { opacity: 0; }
+
+/* ═══ Peças compartilhadas ════════════════════════════════════════ */
+
+/* O wordmark é máscara, não fonte: `assets/brand/wordmark.png` recortando
+   a cor corrente. É o que permite o mesmo arquivo sair branco no vinho e
+   vinho no fundo claro do Le Club Lacoste — e contorna a Utile, que ainda
+   não chegou. */
+.wordmark,
+.side-wordmark__mark {
+  background-color: currentColor;
+  -webkit-mask-image: var(--fl-wordmark-src);
+  mask-image: var(--fl-wordmark-src);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* Pill — 270×45 no PSD, canto de 8px. O raio contraria o `border-radius: 0`
+   do design system do Estúdio AB; é determinação do PSD do cliente. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fl-pill-w);
+  height: var(--fl-pill-h);
+  padding: 0 2rem;
+  font-family: var(--fl-font-label);
+  font-weight: var(--fl-w-regular);
+  font-size: 1.4rem;
+  letter-spacing: var(--fl-track-label);
+  text-transform: uppercase;
+  color: var(--fl-fg-quiet);
+  border: var(--fl-hairline) solid var(--fl-line);
+  border-radius: var(--fl-pill-radius);
+  background: var(--fl-bg);   /* opaco: é o que abre o rasgo no hairline */
+  transition: opacity var(--fl-press) var(--fl-ease),
+              transform var(--fl-press) var(--fl-ease);
+}
+.pill:active { opacity: 0.65; transform: scale(0.97); }
+
+/* VOLTAR ancorado em (1543, 962) */
+.foot {
+  position: absolute;
+  left: 0;
+  right: 10.7rem;
+  top: var(--fl-foot-y);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 50;
+}
+
+/* Chevron circular ⌀37 */
+.chevron-circle {
+  display: block;
+  width: var(--fl-chevron);
+  height: var(--fl-chevron);
+  color: var(--fl-fg-quiet);
+}
+.chevron-circle svg { width: 100%; height: 100%; }
+
+/* A rosácea 3D. O wrapper posiciona; o <img> gira. Separar as duas coisas
+   é o que permite manter um giro infinito e ainda animar a entrada da tela
+   sem que os dois transforms briguem pelo mesmo elemento. */
+.star-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  animation: fl-spin var(--fl-spin-star) linear infinite;
+}
+
+/* ═══ splash — CAPA ═══════════════════════════════════════════════
+   A capa redefine --fl-bg em vez de só pintar o fundo: assim tudo que
+   herda a cor do chão — a pill opaca, à frente — acompanha, e não sobra
+   um retângulo mais claro no meio do vinho escuro. */
+.screen--splash {
+  --fl-bg: var(--fl-red-deep);
+  background: var(--fl-bg);
+}
+
+.screen--splash .splash__head {
+  position: absolute;
+  left: 0; right: 0;
+  top: 8.3rem;
+  z-index: 2;
+}
+
+/* wordmark (222,83)-(1699,250) — centrado, 147.7 × 16.7rem */
+.screen--splash .wordmark {
+  width: 147.7rem;
+  height: 16.7rem;
+  margin: 0 auto;
+  color: var(--fl-white);
+}
+
+/* pill INÍCIO em (825,390) */
+.screen--splash .splash__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 14rem;   /* 250 → 390 */
+}
+
+/* rosácea em (467,587), 986px — metade superior visível */
+.screen--splash .splash__star {
+  position: absolute;
+  left: 46.7rem;
+  top: 58.7rem;
+  width: 98.6rem;
+  z-index: 1;
+}
+
+/* ═══ menu — TELA_01, TELA_02 das torres, FACHADA ═════════════════ */
+
+/* rosácea em (467,−411) — metade inferior visível, pendurada no topo */
+.screen--menu .menu__star {
+  position: absolute;
+  left: 46.7rem;
+  top: -41.1rem;
+  width: 98.6rem;
+  z-index: 1;
+}
+
+.screen--menu .menu__body {
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+/* Título da torre em (·,652), centrado e sublinhado.
+   A camada do PSD guarda o texto em minúsculas ("legítimo"), mas com caixa
+   alta tipográfica ligada — o que se vê no desenho é LEGÍTIMO. O config
+   preserva o texto como está no arquivo e a caixa é decisão de estilo, aqui. */
+.screen--menu .menu__title {
+  margin-top: 65.2rem;
+  font-family: var(--fl-font-display);
+  font-weight: var(--fl-w-regular);
+  font-size: 2.9rem;
+  line-height: 1;
+  letter-spacing: var(--fl-track-title);
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 0.9rem;
+  text-decoration-thickness: var(--fl-hairline);
+  color: var(--fl-fg-quiet);
+}
+
+/* Trilha de pills: linha — pill — linha — pill — … — linha.
+   As linhas são o hairline do PSD (y 763) atravessando os botões; como as
+   pills têm fundo opaco, o traço parece passar por trás delas. */
+.screen--menu .pill-rail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: absolute;
+  left: 0; right: 0;
+  top: 74.2rem;
+}
+.pill-rail__line {
+  flex: 0 0 auto;
+  width: var(--fl-pill-gap);
+  height: var(--fl-hairline);
+  background: var(--fl-line);
+}
+
+/* ═══ viewer — TELA_03, TELA_04 e LE CLUB LACOSTE ═════════════════ */
+
+/* Wordmark vertical no trilho esquerdo, (72,127)-(166,952), lendo de baixo
+   para cima. É o mesmo PNG horizontal girado −90°: a caixa é declarada
+   deitada (82.5 × 9.4rem) e a rotação em torno do canto superior esquerdo,
+   seguida de translateX(-100%) no eixo já girado, a assenta exatamente sobre
+   o trilho. Um arquivo só, sem perda de nitidez — o PNG tem 1477px.
+
+   Duas camadas: o wrapper existe só para receber a animação de entrada; a
+   rotação mora no filho. Num elemento só, o `transform` do keyframe
+   substituiria o `rotate` e o wordmark entraria deitado. */
+.screen--viewer .side-wordmark {
+  position: absolute;
+  left: var(--fl-rail-x);
+  top: 12.7rem;
+  width: var(--fl-rail-w);
+  height: 82.5rem;
+  z-index: 6;
+}
+.screen--viewer .side-wordmark__mark {
+  width: 82.5rem;
+  height: var(--fl-rail-w);
+  transform-origin: 0 0;
+  transform: rotate(-90deg) translateX(-100%);
+}
+
+.screen--viewer .viewer__body {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+/* ── barra superior ───────────────────────────────────────────────── */
+.topbar {
+  position: absolute;
+  left: 0; right: 0;
+  top: var(--fl-topbar-y);
+  height: 4rem;
+}
+
+/* Abas de ambiente, centradas em x=960. O clamp absorve a diferença de
+   métrica entre a Utile do PSD e a Helvetica Neue que está no lugar dela —
+   a lista mais longa (Áreas Comuns, nível 2) ocupa 1086px no desenho. */
+.topbar__tabs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: baseline;
+  gap: 1.4rem;
+  max-width: 132rem;
+  white-space: nowrap;
+  font-size: clamp(1.4rem, 1.8rem, 1.8rem);
+  letter-spacing: var(--fl-track-title);
+  color: var(--fl-fg);
+}
+/* Abas distinguem-se por PESO, não por cor nem opacidade — é assim no PSD, e
+   é o que mantém a barra legível a um metro de distância. */
+.topbar__tab {
+  font: inherit;
+  font-weight: var(--fl-w-regular);
+  color: inherit;
+  text-transform: uppercase;
+  transition: opacity var(--fl-press) var(--fl-ease);
+}
+.topbar__tab:active { opacity: 0.5; }
+.topbar__sep { opacity: 0.45; }
+
+/* Com um ambiente só não há o que distinguir: o rótulo fica regular, como
+   "GARAGEM" no SS3 do PSD. O negrito só entra quando há escolha. */
+.topbar--multi .topbar__tab[data-active] { font-weight: var(--fl-w-semibold); }
+
+/* Stepper. Duas orientações porque o PSD usa as duas: horizontal quando
+   percorre opções lado a lado (subsolos, apartamentos) e vertical quando
+   percorre andares (áreas comuns). */
+.stepper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--fl-fg);
+}
+.stepper.is-hidden { visibility: hidden; }
+
+.stepper--x {
+  top: 50%;
+  right: 10.7rem;          /* borda direita em x=1813, alinhada ao VOLTAR */
+  transform: translateY(-50%);
+  width: 22.5rem;
+  flex-direction: row;
+}
+.stepper--y {
+  top: 50%;
+  right: 19.8rem;          /* coluna centrada em x≈1703, como no PSD */
+  transform: translateY(-50%);
+  height: 15.1rem;
+  flex-direction: column;
+}
+
+.stepper__label {
+  font-size: 1.8rem;
+  letter-spacing: var(--fl-track-title);
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+}
+.stepper--x .stepper__label { flex: 1 1 auto; }
+
+.stepper__btn {
+  flex: 0 0 auto;
+  transition: opacity var(--fl-press) var(--fl-ease),
+              transform var(--fl-press) var(--fl-ease);
+}
+.stepper__btn:active { opacity: 0.6; transform: scale(0.93); }
+
+/* ── painéis de mídia ─────────────────────────────────────────────── */
+.viewer__panes {
+  position: absolute;
+  left: var(--fl-pad);
+  top: var(--fl-pane-top);
+  width: 159.2rem;         /* 222 → 1814 */
+  height: var(--fl-pane-h);
+  display: flex;
+  gap: var(--fl-pane-gap);
+}
+
+.pane {
+  position: relative;
+  flex: 0 0 var(--fl-pane-minor);
+  height: 100%;
+  overflow: hidden;
+  background: var(--fl-media);
+  border-radius: var(--fl-pane-radius);
+}
+.pane.is-expanded { flex-basis: var(--fl-pane-major); }
+
+/* A troca de painel é só isto: uma largura animada. Conteúdo e posição ficam
+   parados, que é o que o olho lê como "o pequeno cresceu".
+
+   A transição só entra depois do primeiro quadro (`.is-ready`, posto pelo
+   renderer num requestAnimationFrame). Duas razões: a tela não deve nascer
+   com os painéis crescendo — quem entra já entra com o layout pronto — e uma
+   transição pendurada em `flex-basis` desde a montagem congela no valor
+   antigo se o viewport mudar de tamanho durante a carga. */
+.screen--viewer.is-ready .pane {
+  transition: flex-basis var(--fl-swap) var(--fl-ease);
+}
+
+/* Viewer de painel único (fachada): a galeria ocupa a linha inteira. */
+.screen--viewer-single .pane { flex: 1 1 auto; }
+
+.pane__stage { position: absolute; inset: 0; }
+
+/* Duplo buffer: o slot que entra sobrepõe o que sai e só depois ele é
+   removido. Trocar o `src` no lugar disso daria um piscar branco. */
+.pane__slot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--fl-slot) var(--fl-ease);
+}
+.pane__slot.is-active  { opacity: 1; }
+.pane__slot.is-leaving { opacity: 0; }
+
+.pane__img,
+.pane__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pane__video { object-fit: contain; background: var(--fl-ink); }
+
+/* Rótulo do painel, no topo, sobre a mídia — "IMAGENS GERAIS" / "PLANTA
+   DAS IMGS" (y=276 no PSD, ou seja 4rem abaixo do topo do painel). */
+.pane__label {
+  position: absolute;
+  left: 0; right: 0;
+  top: 4rem;
+  text-align: center;
+  font-size: 1.7rem;
+  letter-spacing: var(--fl-track-title);
+  text-transform: uppercase;
+  color: var(--fl-white);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pane__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fl-media);
+}
+.pane__placeholder-label {
+  font-size: 1.4rem;
+  letter-spacing: var(--fl-track-label);
+  text-transform: uppercase;
+  color: var(--fl-white);
+  opacity: 0.85;
+}
+
+/* Setas dentro do painel — só aparecem a partir da segunda mídia. Ficam
+   escondidas por padrão para o painel não anunciar navegação que não existe. */
+.pane__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  visibility: hidden;
+  transition: opacity var(--fl-press) var(--fl-ease),
+              transform var(--fl-press) var(--fl-ease);
+}
+.pane.has-nav .pane__nav { visibility: visible; }
+.pane__nav--prev { left: 2.8rem; }
+.pane__nav--next { right: 2.8rem; }
+.pane__nav:active { opacity: 0.6; transform: translateY(-50%) scale(0.93); }
+.pane__nav .chevron-circle { color: var(--fl-white); }
+
+/* O painel recolhido é estreito demais para as setas: nele o toque serve
+   para expandir, não para navegar. */
+.pane:not(.is-expanded) .pane__nav { visibility: hidden; }
+
+/* ── rodapé do viewer: régua + rótulo multilinha ──────────────────── */
+/* Rótulo do canto inferior esquerdo. Ancorado pelo CENTRO, não pela base:
+   no PSD ele tem de uma a três linhas e o bloco cresce para os dois lados
+   em torno de y≈985 (1 linha: 961–1008; 3 linhas: 945–1026). Prender pela
+   base faria o texto de três linhas subir e desalinhar com o VOLTAR. */
+.viewer__caption {
+  position: absolute;
+  left: 22.1rem;
+  top: 88.5rem;
+  height: 20rem;       /* centro em 98.5rem */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 6;
+}
+.viewer__caption-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.6rem;
+}
+.viewer__caption-rule {
+  flex: 0 0 auto;
+  width: 0.6rem;
+  border-left: var(--fl-hairline) solid var(--fl-fg);
+}
+.viewer__caption-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.9rem 0;   /* a régua sobra um pouco acima e abaixo do texto */
+  font-size: 1.3rem;
+  font-weight: var(--fl-w-semibold);
+  letter-spacing: var(--fl-track-label);
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: var(--fl-fg);
+}
+
+/* ── decoração do Le Club Lacoste ────────────────────────────────── */
+.viewer__decor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+/* Malha de meio-tom do Le Club Lacoste.
+   Gerada em CSS, não importada do PSD. A camada do PSD é um raster de 3,5 MB
+   com máscara: ela recorta a malha num retângulo que morre no meio da tela, e
+   a densidade sobe tanto na faixa superior que o menu de ambientes fica difícil
+   de ler por cima dela. Aqui a malha é uniforme, cobre a tela inteira e tem o
+   contraste da região calma do PSD (passo de 8px, ponto ~15 níveis abaixo do
+   fundo) — que é o que a textura queria ser. */
+.viewer__texture {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    var(--fl-dot) var(--fl-dot-size),
+    transparent calc(var(--fl-dot-size) + 0.03rem)
+  );
+  background-size: var(--fl-dot-pitch) var(--fl-dot-pitch);
+}
+
+/* Os três selos, meio fora da tela como no PSD. Cada um gira em velocidade
+   e sentido próprios — velocidades primas entre si, para o conjunto nunca
+   repetir a mesma composição. */
+.seal { position: absolute; }
+.seal img { width: 100%; height: auto; transform-origin: 50% 50%; will-change: transform; }
+
+/* Posições lidas direto das camadas le_club_lacoste_1 do PSD. */
+.seal--1 { left: 150.3rem; top: 2.9rem;  width: 35.1rem; }   /* (1503, 29)  */
+.seal--2 { left:  44.5rem; top: 68.1rem; width: 35.5rem; }   /* (445, 681)  */
+.seal--3 { left: 111.9rem; top: 78.4rem; width: 35.5rem; }   /* (1119, 784) */
+
+.seal--1 img { animation: fl-spin     var(--fl-spin-seal-1) linear infinite; }
+.seal--2 img { animation: fl-spin-rev var(--fl-spin-seal-2) linear infinite; }
+.seal--3 img { animation: fl-spin     var(--fl-spin-seal-3) linear infinite; }
+
+/* No tema claro a mídia continua cinza; só o cromo inverte. */
+.screen--light .pane__label,
+.screen--light .pane__placeholder-label,
+.screen--light .pane__nav .chevron-circle { color: var(--fl-white); }
+
+/* ═══ Movimento ═══════════════════════════════════════════════════
+   Uma curva só em todo o produto: cubic-bezier(0.22, 1, 0.36, 1).
+   Uma distância só: 1.8rem. Durações longas, porque a mesa é um objeto
+   de contemplação, não um app. Sem bounce, sem spring. */
+
+@keyframes fl-spin     { from { transform: rotate(0deg);   } to { transform: rotate(360deg); } }
+@keyframes fl-spin-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg);   } }
+
+@keyframes fl-rise {
+  from { opacity: 0; transform: translateY(1.8rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fl-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fl-slide-left {
+  from { opacity: 0; transform: translateX(-1.8rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Escada de entrada: estrutura → conteúdo → cromo. O rodapé sempre por
+   último. `both` no fill-mode evita o pisco antes do delay.
+   Os wrappers de rosácea só recebem fade — um translate neles brigaria com
+   o transform de posicionamento, e o giro mora no filho. */
+
+/* splash */
+.screen--splash.is-active .wordmark     { animation: fl-rise 1440ms var(--fl-ease) both; }
+.screen--splash.is-active .splash__cta  { animation: fl-rise 1440ms var(--fl-ease) 360ms both; }
+.screen--splash.is-active .splash__star { animation: fl-fade 1960ms var(--fl-ease) 200ms both; }
+
+/* menu */
+.screen--menu.is-active .menu__star  { animation: fl-fade 1960ms var(--fl-ease) both; }
+.screen--menu.is-active .menu__title { animation: fl-rise 1440ms var(--fl-ease) 280ms both; }
+.screen--menu.is-active .pill-rail   { animation: fl-rise 1440ms var(--fl-ease) 360ms both; }
+.screen--menu.is-active .foot        { animation: fl-rise 1440ms var(--fl-ease) 600ms both; }
+
+/* viewer */
+.screen--viewer.is-active .side-wordmark    { animation: fl-slide-left 1640ms var(--fl-ease) both; }
+.screen--viewer.is-active .topbar           { animation: fl-rise 1440ms var(--fl-ease) 280ms both; }
+.screen--viewer.is-active .viewer__panes    { animation: fl-rise 1520ms var(--fl-ease) 480ms both; }
+.screen--viewer.is-active .viewer__caption  { animation: fl-rise 1440ms var(--fl-ease) 600ms both; }
+.screen--viewer.is-active .viewer__decor    { animation: fl-fade 2080ms var(--fl-ease) 320ms both; }
+.screen--viewer.is-active .foot             { animation: fl-rise 1440ms var(--fl-ease) 640ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .star-img,
+  .seal img { animation: none; }
+  /* A troca de painel passa a ser instantânea — continua funcionando, só não
+     desliza. */
+  .screen--viewer.is-ready .pane,
+  .pane__slot,
+  .screen { transition: none; }
+  .screen.is-active .wordmark,
+  .screen.is-active .splash__cta,
+  .screen.is-active .splash__star,
+  .screen.is-active .menu__star,
+  .screen.is-active .menu__title,
+  .screen.is-active .pill-rail,
+  .screen.is-active .side-wordmark,
+  .screen.is-active .topbar,
+  .screen.is-active .viewer__panes,
+  .screen.is-active .viewer__caption,
+  .screen.is-active .viewer__decor,
+  .screen.is-active .foot { animation: none; }
+}
+
+/* ═══ Tela de erro de boot ════════════════════════════════════════ */
+.boot-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 var(--fl-pad);
+  text-align: center;
+  background: var(--fl-bg);
+  color: var(--fl-fg);
+}
+.boot-error__title {
+  font-size: 2.4rem;
+  letter-spacing: var(--fl-track-label);
+  text-transform: uppercase;
+}
+.boot-error__detail {
+  font-family: var(--ab-font-mono, monospace);
+  font-size: 1.4rem;
+  opacity: 0.75;
+  max-width: 110rem;
+}

@@ -1,0 +1,42 @@
+# ─────────────────────────────────────────────────────────────────
+#  Flamboyant — Mesa Interativa · .gitignore
+# ─────────────────────────────────────────────────────────────────
+
+# Vídeos pesados — transferência por pendrive/HD, NÃO versionados.
+# (videos/.gitkeep é mantido para a pasta existir no repo)
+videos/*
+!videos/.gitkeep
+
+# Arquivos temporários de teste/QA (páginas de sonda, harness de toque)
+_*.html
+*.tmp
+/tmp-*/
+
+# Logs e perfis de kiosk gerados em runtime
+*.log
+*kiosk-profile*/
+
+# Sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Capturas de conferência — geradas por scripts/shots.sh a partir do código,
+# e os renders do PSD, geradas por scripts/psd_extract.py. Ambas são
+# reproduzíveis; o que precisa estar versionado é o PSD.
+docs/shots/
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependências (não usadas hoje — vanilla — mas por segurança)
+node_modules/

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>Flamboyant — Mesa Interativa (Sala de Vendas)</title>
+
+  <!-- Tokens: Estúdio AB design system (copied, not re-typed) -->
+  <link rel="stylesheet" href="css/colors_and_type.css" />
+  <!-- Theme layer: Flamboyant red surface palette over the AB system -->
+  <link rel="stylesheet" href="css/theme-flamboyant.css" />
+  <!-- App layout & components -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Full-viewport stage. Each screen builds its own chrome (wordmark,
+       hairlines, voltar); there is no global header/footer. -->
+  <div id="stage-frame">
+    <main class="screen-root" id="screen-root"></main>
+  </div>
+
+  <!-- Ordem de carga = ordem das camadas. Cada arquivo aumenta o namespace
+       global FLAM, e a dependência aponta sempre para dentro:
+         core/  não conhece o DOM        (entidades + regras)
+         ui/    conhece core e o DOM     (adaptadores)
+         app.js compõe os dois           (composition root) -->
+  <script src="js/utils.js"></script>
+  <script src="js/core/content.js"></script>
+  <script src="js/core/viewer-state.js"></script>
+  <script src="js/ui/screens.js"></script>
+  <script src="js/ui/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

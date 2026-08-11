@@ -1,0 +1,777 @@
+{
+  "_leia-me": [
+    "Árvore de conteúdo da mesa, transcrita de mesa-atualizacao-sala-final.psd.",
+    "Os caminhos de mídia são o esqueleto: os arquivos ainda não existem e cada",
+    "painel renderiza o placeholder cinza até chegarem. Para adicionar mais fotos",
+    "a um ambiente basta acrescentar entradas no array `gallery` — as setas de",
+    "navegação dentro do painel aparecem sozinhas a partir da segunda imagem.",
+    "Vídeo não tem tipo próprio: é detectado pela extensão do arquivo.",
+    "",
+    "Divergências deliberadas em relação ao texto do PSD, todas em docs/CONTEUDO.md:",
+    "WELNESS → WELLNESS, PORT CORCHERE → PORT COCHÈRE."
+  ],
+
+  "title": "Flamboyant — Mesa Interativa (Sala de Vendas)",
+  "idleTimeoutMs": 180000,
+
+  "brand": {
+    "name": "FLAMBOYANT",
+    "wordmark": "assets/brand/wordmark.png",
+    "star": "assets/brand/star.png",
+    "seal": "assets/brand/seal-lacoste.png"
+  },
+
+  "menu": [
+    {
+      "id": "legitimo",
+      "label": "LEGÍTIMO",
+      "type": "menu",
+      "title": "legítimo",
+      "items": [
+        {
+          "id": "subsolos",
+          "label": "SUBSOLOS",
+          "type": "viewer",
+          "panes": 2,
+          "stepperAxis": "x",
+          "steps": [
+            {
+              "label": "SS3",
+              "caption": "SUBSOLOS",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/ss3/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/ss3/planta-garagem.png" }]
+                }
+              ]
+            },
+            {
+              "label": "SS2",
+              "caption": "SUBSOLOS",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/ss2/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/ss2/planta-garagem.png" }]
+                }
+              ]
+            },
+            {
+              "label": "SS1",
+              "caption": "SUBSOLOS",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/ss1/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/ss1/planta-garagem.png" }]
+                },
+                {
+                  "label": "LOBBY LEGÍTIMO",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/ss1/lobby-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/ss1/planta-lobby.png" }]
+                },
+                {
+                  "label": "CAR WASH",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/ss1/car-wash-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/ss1/planta-car-wash.png" }]
+                },
+                {
+                  "label": "PORT COCHÈRE",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/ss1/port-cochere-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/ss1/planta-port-cochere.png" }]
+                }
+              ]
+            },
+            {
+              "label": "TÉRREO",
+              "caption": "TÉRREO",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/terreo/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/terreo/planta-garagem.png" }]
+                },
+                {
+                  "label": "BICICLETÁRIO",
+                  "gallery": [{ "src": "assets/content/legitimo/subsolos/terreo/bicicletario-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/subsolos/terreo/planta-bicicletario.png" }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "areas-comuns",
+          "label": "ÁREAS COMUNS",
+          "type": "viewer",
+          "panes": 2,
+          "stepperAxis": "y",
+          "steps": [
+            {
+              "label": "34",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO LEGÍTIMO", "ACADEMIA ASSINATURA TECHNOGYM"],
+              "tabs": [
+                {
+                  "label": "ACADEMIA",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/34/academia-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/34/planta-academia.png" }]
+                }
+              ]
+            },
+            {
+              "label": "33",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO LEGÍTIMO", "SALÃO DE FESTAS"],
+              "tabs": [
+                {
+                  "label": "SALÃO DE FESTAS",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/33/salao-de-festas-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/33/planta-salao-de-festas.png" }]
+                }
+              ]
+            },
+            {
+              "label": "2",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO LEGÍTIMO", "WELLNESS"],
+              "tabs": [
+                {
+                  "label": "PILATES",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/02/pilates-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/02/planta-pilates.png" }]
+                },
+                {
+                  "label": "SALA DE MASSAGEM",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/02/sala-de-massagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/02/planta-sala-de-massagem.png" }]
+                },
+                {
+                  "label": "SAUNA SECA",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/02/sauna-seca-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/02/planta-sauna-seca.png" }]
+                },
+                {
+                  "label": "SPA",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/02/spa-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/02/planta-spa.png" }]
+                },
+                {
+                  "label": "ESPAÇO BEAUTY",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/02/espaco-beauty-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/02/planta-espaco-beauty.png" }]
+                },
+                {
+                  "label": "YOGA E PILATES SOLO",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/02/yoga-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/02/planta-yoga.png" }]
+                }
+              ]
+            },
+            {
+              "label": "LAZER EXECUTIVO",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO LEGÍTIMO"],
+              "tabs": [
+                {
+                  "label": "SALÃO DE FESTAS",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-executivo/salao-de-festas-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-executivo/planta-salao-de-festas.png" }]
+                },
+                {
+                  "label": "BRINQUEDOTECA",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-executivo/brinquedoteca-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-executivo/planta-brinquedoteca.png" }]
+                },
+                {
+                  "label": "PISCINA ADULTO",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-executivo/piscina-adulto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-executivo/planta-piscina-adulto.png" }]
+                }
+              ]
+            },
+            {
+              "label": "LAZER COMUM",
+              "caption": "ÁREAS COMUNS",
+              "tabs": [
+                {
+                  "label": "MINI MERCADO",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/mini-mercado-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/planta-mini-mercado.png" }]
+                },
+                {
+                  "label": "CHURRASQUEIRA",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/churrasqueira-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/planta-churrasqueira.png" }]
+                },
+                {
+                  "label": "PLAYGROUND",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/playground-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/planta-playground.png" }]
+                },
+                {
+                  "label": "PISCINA INFANTIL",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/piscina-infantil-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/planta-piscina-infantil.png" }]
+                },
+                {
+                  "label": "ESPAÇO PET",
+                  "gallery": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/espaco-pet-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/areas-comuns/lazer-comum/planta-espaco-pet.png" }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "apartamentos",
+          "label": "APARTAMENTOS",
+          "type": "viewer",
+          "panes": 2,
+          "stepperAxis": "x",
+          "_nota": "O PSD desenhou o menu de ambientes só na última planta. Os demais tipos ficam com um ambiente sem rótulo até o cliente informar a lista — ver docs/CONTEUDO.md.",
+          "steps": [
+            {
+              "label": "872 M²",
+              "caption": ["APARTAMENTO DUPLEX SUPERIOR", "5 SUÍTES — 872 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/872-duplex-superior/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/872-duplex-superior/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "872 M²",
+              "caption": ["APARTAMENTO DUPLEX INFERIOR", "5 SUÍTES — 872 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/872-duplex-inferior/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/872-duplex-inferior/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "461 M²",
+              "caption": ["APARTAMENTO TIPO HOUSE", "4 SUÍTES E GOURMET INTEGRADO", "461 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/461-tipo-house/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/461-tipo-house/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "420 M²",
+              "caption": ["APARTAMENTO", "4 SUÍTES E COZINHA FECHADA", "420 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/420-cozinha-fechada/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/420-cozinha-fechada/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "420 M²",
+              "caption": ["APARTAMENTO PADRÃO", "4 SUÍTES E GOURMET INTEGRADO", "420 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/420-padrao/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/420-padrao/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "420 M²",
+              "caption": ["APARTAMENTO OPÇÃO", "3 SUÍTES E GOURMET INTEGRADO", "420 M²"],
+              "tabs": [
+                {
+                  "label": "VARANDA",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/varanda-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/planta-varanda.png" }]
+                },
+                {
+                  "label": "LIVING",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/living-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/planta-living.png" }]
+                },
+                {
+                  "label": "SALA ÍNTIMA",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/sala-intima-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/planta-sala-intima.png" }]
+                },
+                {
+                  "label": "SUÍTE MASTER",
+                  "gallery": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/suite-master-01.jpg" }],
+                  "plans": [{ "src": "assets/content/legitimo/apartamentos/420-opcao/planta-suite-master.png" }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "fachada",
+          "label": "FACHADA",
+          "type": "menu",
+          "title": "legítimo",
+          "items": [
+            {
+              "id": "imagem",
+              "label": "IMAGEM",
+              "type": "viewer",
+              "panes": 1,
+              "steps": [
+                {
+                  "label": "",
+                  "tabs": [
+                    {
+                      "label": "",
+                      "gallery": [{ "src": "assets/content/legitimo/fachada/fachada-01.jpg" }],
+                      "plans": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "video",
+              "label": "VÍDEO",
+              "type": "viewer",
+              "panes": 1,
+              "steps": [
+                {
+                  "label": "",
+                  "tabs": [
+                    {
+                      "label": "",
+                      "gallery": [{ "src": "videos/legitimo-fachada.mp4" }],
+                      "plans": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "autentico",
+      "label": "AUTÊNTICO",
+      "type": "menu",
+      "title": "autêntico",
+      "items": [
+        {
+          "id": "subsolos",
+          "label": "SUBSOLOS",
+          "type": "viewer",
+          "panes": 2,
+          "stepperAxis": "x",
+          "steps": [
+            {
+              "label": "SS3",
+              "caption": "SUBSOLOS",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/ss3/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/ss3/planta-garagem.png" }]
+                }
+              ]
+            },
+            {
+              "label": "SS2",
+              "caption": "SUBSOLOS",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/ss2/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/ss2/planta-garagem.png" }]
+                }
+              ]
+            },
+            {
+              "label": "SS1",
+              "caption": "SUBSOLOS",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/ss1/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/ss1/planta-garagem.png" }]
+                },
+                {
+                  "label": "LOBBY AUTÊNTICO",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/ss1/lobby-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/ss1/planta-lobby.png" }]
+                },
+                {
+                  "label": "CAR WASH",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/ss1/car-wash-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/ss1/planta-car-wash.png" }]
+                },
+                {
+                  "label": "PORT COCHÈRE",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/ss1/port-cochere-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/ss1/planta-port-cochere.png" }]
+                }
+              ]
+            },
+            {
+              "label": "TÉRREO",
+              "caption": "TÉRREO",
+              "tabs": [
+                {
+                  "label": "garagem",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/terreo/garagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/terreo/planta-garagem.png" }]
+                },
+                {
+                  "label": "BICICLETÁRIO",
+                  "gallery": [{ "src": "assets/content/autentico/subsolos/terreo/bicicletario-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/subsolos/terreo/planta-bicicletario.png" }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "areas-comuns",
+          "label": "ÁREAS COMUNS",
+          "type": "viewer",
+          "panes": 2,
+          "stepperAxis": "y",
+          "steps": [
+            {
+              "label": "31",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO AUTÊNTICO", "WELLNESS"],
+              "tabs": [
+                {
+                  "label": "SAUNA SECA",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/31/sauna-seca-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/31/planta-sauna-seca.png" }]
+                },
+                {
+                  "label": "SALA DE MASSAGEM",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/31/sala-de-massagem-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/31/planta-sala-de-massagem.png" }]
+                },
+                {
+                  "label": "SPA",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/31/spa-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/31/planta-spa.png" }]
+                },
+                {
+                  "label": "ESPAÇO BEAUTY",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/31/espaco-beauty-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/31/planta-espaco-beauty.png" }]
+                },
+                {
+                  "label": "PILATES",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/31/pilates-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/31/planta-pilates.png" }]
+                },
+                {
+                  "label": "YOGA",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/31/yoga-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/31/planta-yoga.png" }]
+                }
+              ]
+            },
+            {
+              "label": "30",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO AUTÊNTICO", "ACADEMIA ASSINATURA TECHNOGYM"],
+              "tabs": [
+                {
+                  "label": "ERGONOMETRIA",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/30/ergonometria-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/30/planta-ergonometria.png" }]
+                },
+                {
+                  "label": "MUSCULAÇÃO",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/30/musculacao-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/30/planta-musculacao.png" }]
+                }
+              ]
+            },
+            {
+              "label": "LAZER EXECUTIVO",
+              "caption": ["ÁREAS COMUNS", "EXCLUSIVO AUTÊNTICO"],
+              "tabs": [
+                {
+                  "label": "SALÃO DE FESTAS GOURMET",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/salao-gourmet-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/planta-salao-gourmet.png" }]
+                },
+                {
+                  "label": "SALÃO DE FESTAS",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/salao-de-festas-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/planta-salao-de-festas.png" }]
+                },
+                {
+                  "label": "BRINQUEDOTECA",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/brinquedoteca-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/planta-brinquedoteca.png" }]
+                },
+                {
+                  "label": "PISCINA ADULTO",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/piscina-adulto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-executivo/planta-piscina-adulto.png" }]
+                }
+              ]
+            },
+            {
+              "label": "LAZER COMUM",
+              "caption": "ÁREAS COMUNS",
+              "tabs": [
+                {
+                  "label": "MINI MERCADO",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/mini-mercado-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/planta-mini-mercado.png" }]
+                },
+                {
+                  "label": "CHURRASQUEIRA",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/churrasqueira-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/planta-churrasqueira.png" }]
+                },
+                {
+                  "label": "PLAYGROUND",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/playground-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/planta-playground.png" }]
+                },
+                {
+                  "label": "PISCINA INFANTIL",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/piscina-infantil-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/planta-piscina-infantil.png" }]
+                },
+                {
+                  "label": "ESPAÇO PET",
+                  "gallery": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/espaco-pet-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/areas-comuns/lazer-comum/planta-espaco-pet.png" }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "apartamentos",
+          "label": "APARTAMENTOS",
+          "type": "viewer",
+          "panes": 2,
+          "stepperAxis": "x",
+          "_nota": "Só as opções de 306 e 250 m² têm menu de ambientes no PSD. Ver docs/CONTEUDO.md.",
+          "steps": [
+            {
+              "label": "649 M²",
+              "caption": ["APARTAMENTO DUPLEX SUPERIOR", "5 SUÍTES — 649 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/649-duplex-superior/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/649-duplex-superior/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "649 M²",
+              "caption": ["APARTAMENTO DUPLEX INFERIOR", "5 SUÍTES — 649 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/649-duplex-inferior/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/649-duplex-inferior/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "530 M²",
+              "caption": ["APARTAMENTO DUPLEX SUPERIOR", "5 SUÍTES — 530 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/530-duplex-superior/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/530-duplex-superior/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "530 M²",
+              "caption": ["APARTAMENTO DUPLEX INFERIOR", "5 SUÍTES — 530 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/530-duplex-inferior/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/530-duplex-inferior/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "330 M²",
+              "caption": ["APARTAMENTO TIPO HOUSE", "4 SUÍTES E GOURMET INTEGRADO", "330 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/330-tipo-house/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/330-tipo-house/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "306 M²",
+              "caption": ["APARTAMENTO PADRÃO", "4 SUÍTES E GOURMET INTEGRADO", "306 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/306-padrao/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/306-padrao/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "306 M²",
+              "caption": ["APARTAMENTO OPÇÃO", "3 SUÍTES E GOURMET INTEGRADO", "306 M²"],
+              "tabs": [
+                {
+                  "label": "SUÍTE MASTER",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/306-opcao/suite-master-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/306-opcao/planta-suite-master.png" }]
+                },
+                {
+                  "label": "LIVING",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/306-opcao/living-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/306-opcao/planta-living.png" }]
+                },
+                {
+                  "label": "VARANDA",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/306-opcao/varanda-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/306-opcao/planta-varanda.png" }]
+                }
+              ]
+            },
+            {
+              "label": "274 M²",
+              "caption": ["APARTAMENTO TIPO HOUSE", "4 SUÍTES E GOURMET INTEGRADO", "274 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/274-tipo-house/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/274-tipo-house/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "250 M²",
+              "caption": ["APARTAMENTO PADRÃO", "4 SUÍTES E GOURMET INTEGRADO", "250 M²"],
+              "tabs": [
+                {
+                  "label": "",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/250-padrao/foto-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/250-padrao/planta.png" }]
+                }
+              ]
+            },
+            {
+              "label": "250 M²",
+              "caption": ["APARTAMENTO OPÇÃO", "3 SUÍTES E GOURMET INTEGRADO", "250 M²"],
+              "tabs": [
+                {
+                  "label": "SUÍTE MASTER",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/250-opcao/suite-master-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/250-opcao/planta-suite-master.png" }]
+                },
+                {
+                  "label": "LIVING",
+                  "gallery": [{ "src": "assets/content/autentico/apartamentos/250-opcao/living-01.jpg" }],
+                  "plans": [{ "src": "assets/content/autentico/apartamentos/250-opcao/planta-living.png" }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id": "fachada",
+          "label": "FACHADA",
+          "type": "menu",
+          "title": "autêntico",
+          "items": [
+            {
+              "id": "imagem",
+              "label": "IMAGEM",
+              "type": "viewer",
+              "panes": 1,
+              "steps": [
+                {
+                  "label": "",
+                  "tabs": [
+                    {
+                      "label": "",
+                      "gallery": [{ "src": "assets/content/autentico/fachada/fachada-01.jpg" }],
+                      "plans": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "video",
+              "label": "VÍDEO",
+              "type": "viewer",
+              "panes": 1,
+              "steps": [
+                {
+                  "label": "",
+                  "tabs": [
+                    {
+                      "label": "",
+                      "gallery": [{ "src": "videos/autentico-fachada.mp4" }],
+                      "plans": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "le-club-lacoste",
+      "label": "LE CLUB LACOSTE",
+      "type": "viewer",
+      "panes": 2,
+      "theme": "light",
+      "steps": [
+        {
+          "label": "",
+          "caption": "LE CLUB LACOSTE",
+          "tabs": [
+            {
+              "label": "QUADRA DE TÊNIS",
+              "gallery": [{ "src": "assets/content/le-club-lacoste/quadra-de-tenis-01.jpg" }],
+              "plans": [{ "src": "assets/content/le-club-lacoste/planta-quadra-de-tenis.png" }]
+            },
+            {
+              "label": "QUADRA ESPORTIVA",
+              "gallery": [{ "src": "assets/content/le-club-lacoste/quadra-esportiva-01.jpg" }],
+              "plans": [{ "src": "assets/content/le-club-lacoste/planta-quadra-esportiva.png" }]
+            },
+            {
+              "label": "QUADRA DE AREIA",
+              "gallery": [{ "src": "assets/content/le-club-lacoste/quadra-de-areia-01.jpg" }],
+              "plans": [{ "src": "assets/content/le-club-lacoste/planta-quadra-de-areia.png" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

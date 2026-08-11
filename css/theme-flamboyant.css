@@ -1,0 +1,140 @@
+/* ─────────────────────────────────────────────────────────────────
+   Flamboyant Ano 2 — Mesa da Sala de Vendas · camada de tema
+
+   Fica sobre os tokens do design system do Estúdio AB
+   (`colors_and_type.css`). O ofício do estúdio é preservado: fills
+   sólidos sem sombra, hairlines, movimento mecânico sem bounce,
+   sem emoji, sem frosted glass.
+
+   O que muda é a superfície: o vermelho profundo do Flamboyant no
+   lugar do bone/sage do AB. Os dois vermelhos (capa e conteúdo) são
+   neutros dentro da marca, então os acentos continuam isolados
+   contra um neutro.
+
+   ⚠ Divergências assumidas em relação ao design system, todas por
+   determinação do PSD do cliente, que é a fonte da verdade:
+   - cantos arredondados em pills (8px) e painéis de mídia (14px),
+     contra o `border-radius: 0` do AB;
+   - a tela LE CLUB LACOSTE usa fundo claro texturizado e o verde da
+     Lacoste — é co-branding, não paleta Flamboyant.
+
+   ⚠ Tipografia: o PSD é composto em Utile (Regular/Semibold/Bold),
+   que ainda não foi entregue. Helvetica Neue entra como proxy. Ver o
+   bloco @font-face comentado logo abaixo.
+   ─────────────────────────────────────────────────────────────── */
+
+/* ═══ Utile — a fonte do PSD ═════════════════════════════════════════
+   Quando os arquivos chegarem: soltar os .otf em `css/fonts/utile/`,
+   descomentar este bloco e pronto. As famílias já estão declaradas com
+   'Utile' em primeiro lugar nos tokens, então nada mais muda.
+   Self-host é obrigatório — a mesa roda offline, sem Typekit.
+
+@font-face {
+  font-family: 'Utile'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('fonts/utile/Utile-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Utile'; font-style: normal; font-weight: 600; font-display: swap;
+  src: url('fonts/utile/Utile-Semibold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Utile'; font-style: normal; font-weight: 700; font-display: swap;
+  src: url('fonts/utile/Utile-Bold.otf') format('opentype');
+}
+*/
+
+:root {
+  /* ───── Superfície Flamboyant (amostrada de mesa-atualizacao-sala-final.psd) ── */
+  --fl-red-deep:    #3E0000;   /* fundo exclusivo da CAPA                  */
+  --fl-red:         #6E150E;   /* fundo de todas as demais telas escuras   */
+  --fl-rose:        #DBB8B7;   /* borda e texto de pills, VOLTAR, hairline */
+  --fl-white:       #FFFFFF;   /* wordmark, menu do topo, rótulo inferior  */
+  --fl-media:       #8C8C8C;   /* placeholder de mídia                     */
+  --fl-ink:         #1A1A1A;   /* texto escuro sobre superfície clara      */
+
+  /* ───── Co-branding Le Club Lacoste ────────────────────────────────── */
+  --fl-bone:        #EDEDED;   /* fundo claro texturizado                  */
+  --fl-lacoste:     #26A85C;   /* verde dos selos                          */
+
+  /* Malha de meio-tom, medida do PSD: passo de 8px e ponto cerca de 15
+     níveis mais escuro que o fundo. Subir a opacidade do ponto começa a
+     comer a legibilidade do menu de ambientes, que passa por cima dela. */
+  --fl-dot:         rgba(110, 21, 14, 0.11);
+  --fl-dot-pitch:   0.8rem;
+  --fl-dot-size:    0.15rem;
+
+  /* ───── Papéis semânticos (o que os componentes consomem) ──────────────
+     Redefinidos por `.screen--light` mais abaixo — é assim que a tela do
+     Le Club Lacoste inverte inteira sem que nenhum componente saiba disso. */
+  --fl-bg:          var(--fl-red);
+  --fl-bg-splash:   var(--fl-red-deep);
+  --fl-fg:          var(--fl-white);      /* texto primário                */
+  --fl-fg-quiet:    var(--fl-rose);       /* pills, VOLTAR, contador       */
+  --fl-line:        var(--fl-rose);       /* hairlines                     */
+  --fl-line-soft:   rgba(219, 184, 183, 0.35);
+
+  /* ───── Tipografia ────────────────────────────────────────────────────
+     Um papel só de texto — o PSD usa Utile em tudo. O wordmark não é
+     fonte: é `assets/brand/wordmark.png`, usado como máscara CSS, então
+     acompanha `currentColor` e serve tanto no vinho quanto no claro. */
+  --fl-font-display: 'Utile', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --fl-font-label:   'Utile', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --fl-w-regular:   400;   /* rótulos de pill, abas inativas               */
+  --fl-w-semibold:  600;   /* aba ativa, rótulo inferior                   */
+  --fl-w-bold:      700;
+
+  --fl-track-title: 0.02em;
+  --fl-track-label: 0.06em;
+
+  /* ───── Geometria — desenhada em 1920 × 1080 ───────────────────────────
+     A escala rem é 1% da altura do viewport (ver :root em styles.css), ou
+     seja px ÷ 10 = rem. Estes valores são leitura direta do PSD. */
+  --fl-pad:          22.2rem;   /* x=222: margem esquerda do conteúdo      */
+  --fl-rail-x:        7.2rem;   /* x=72:  trilho do wordmark lateral       */
+  --fl-rail-w:        9.4rem;   /* largura do wordmark lateral             */
+
+  --fl-pane-top:     23.6rem;   /* y=236: topo dos painéis de mídia        */
+  --fl-pane-h:       62.1rem;   /* 621px de altura                         */
+  --fl-pane-major:  121.5rem;   /* painel grande                           */
+  --fl-pane-minor:   36.0rem;   /* painel pequeno                          */
+  --fl-pane-gap:      1.7rem;
+  --fl-pane-radius:   1.4rem;
+
+  --fl-pill-w:       27.0rem;   /* 270 × 45, gap 25                        */
+  --fl-pill-h:        4.5rem;
+  --fl-pill-gap:      2.5rem;
+  --fl-pill-radius:   0.8rem;
+
+  --fl-chevron:       3.7rem;   /* ⌀37 dos chevrons circulares            */
+  --fl-topbar-y:      9.8rem;   /* linha do menu de ambientes / stepper    */
+  --fl-foot-y:       96.2rem;   /* topo do botão VOLTAR                    */
+
+  --fl-hairline:     1.5px;     /* constante física, não escala            */
+
+  /* ───── Movimento ─────────────────────────────────────────────────────
+     Uma curva só em todo o produto. Sem bounce, sem spring. */
+  --fl-ease:        var(--ab-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  --fl-fade:        600ms;   /* cross-dissolve entre telas (= FADE_MS)     */
+  --fl-swap:        520ms;   /* troca de painel grande ↔ pequeno           */
+  --fl-slot:        400ms;   /* troca de mídia dentro de um painel         */
+  --fl-press:       280ms;   /* feedback de toque                          */
+
+  /* Velocidades de giro. Primas entre si para as rosáceas nunca
+     sincronizarem — o conjunto nunca repete a mesma composição. */
+  --fl-spin-star:    88s;
+  --fl-spin-seal-1: 132s;
+  --fl-spin-seal-2: 108s;
+  --fl-spin-seal-3: 156s;
+}
+
+/* ═══ Tema claro — Le Club Lacoste ═══════════════════════════════════
+   Só redefine os papéis semânticos. Nenhum componente precisa saber que
+   existe um segundo tema. */
+.screen--light {
+  --fl-bg:        var(--fl-bone);
+  --fl-fg:        var(--fl-red);
+  --fl-fg-quiet:  var(--fl-red);
+  --fl-line:      var(--fl-red);
+  --fl-line-soft: rgba(110, 21, 14, 0.35);
+}
