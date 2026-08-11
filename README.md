@@ -155,11 +155,11 @@ voltam, `←`/`→` passam a mídia do painel expandido, `↑`/`↓` movem o ste
 
 ## Pendências
 
-- **Utile** — o PSD é composto em Utile (Regular/Semibold/Bold) e a família
-  ainda não foi entregue. Helvetica Neue está no lugar. Quando os arquivos
-  chegarem: `css/fonts/utile/` e descomentar o bloco `@font-face` no topo de
-  `theme-flamboyant.css` — os tokens já pedem `'Utile'` primeiro. Self-host é
-  obrigatório: a mesa roda offline.
+- **Utile** — instalada (arquivos do cliente), cobertura de caracteres completa.
+  Faltam os pesos **Regular (400)** e **Semibold (600)**, que são os que o PSD
+  usa; vieram Light e Bold. O texto corrente sai mais leve que o desenho até
+  eles chegarem. Detalhes em [docs/CONTEUDO.md](docs/CONTEUDO.md); para
+  conferir, abra `http://127.0.0.1:8791/docs/fontproof.html`.
 - **Mídia** — 152 caminhos previstos, nenhum arquivo entregue.
 - **Ambientes dos apartamentos** — o PSD só desenhou o menu de ambientes numa
   das plantas de cada torre. Ver [docs/CONTEUDO.md](docs/CONTEUDO.md).

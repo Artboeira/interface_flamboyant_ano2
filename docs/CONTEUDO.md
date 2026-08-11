@@ -114,19 +114,54 @@ dos demais tipos.**
 Quando o cliente informar, é só preencher os `tabs` correspondentes no
 `config.json`; nenhuma mudança de código é necessária.
 
-### 4.2 Fonte Utile — **bloqueante para produção**
+### 4.2 Fonte Utile — **instalada, faltam dois pesos**
 
-O PSD é composto em Utile Regular / Semibold / Bold. A família não foi
-entregue e não existe nesta máquina. Helvetica Neue está no lugar como proxy.
+O PSD é composto em Utile (de Sibylle Hagmann), nos pesos **Regular (400)** e
+**Semibold (600)**.
 
-Consequência prática: **a Helvetica Neue é mais larga que a Utile.** O rótulo
-de três linhas dos apartamentos já mede 498px contra 413px no PSD, e o menu de
-ambientes mais longo (áreas comuns nível 2, seis itens) é o que corre maior
-risco de estourar. Vale reconferir esses dois pontos quando a fonte chegar.
+**Instalado (11/08):** arquivos fornecidos pelo cliente, em `css/fonts/utile/`.
+Cobertura de caracteres completa — 524 glifos, todos os acentos, `|`, `²`.
+Conferido em `docs/fontproof.html`: zero ausentes. A responsabilidade pelo
+licenciamento é do cliente, que forneceu os arquivos.
 
-Para instalar: `css/fonts/utile/` + descomentar o bloco `@font-face` no topo de
-`css/theme-flamboyant.css`. Os tokens já pedem `'Utile'` em primeiro lugar.
-Self-host é obrigatório — a mesa roda offline, sem Typekit.
+**O que falta:** vieram **Light (300)** e **Bold (700)** — justamente os dois
+pesos que o desenho não usa. Medindo a espessura de haste com a altura de
+caixa alta igualada em 17px:
+
+| | haste |
+|---|---|
+| PSD (o desenho) | 2,0 px |
+| Utile Light | 1,0 px |
+| Utile Bold | 4,0 px |
+
+O arranjo em uso hoje — Light no texto corrente, Bold no destaque — é o melhor
+possível com o que existe, mas o texto corrente sai mais leve que no desenho.
+
+**Pedir ao cliente:** os pesos **Regular (400)** e **Semibold (600)** da mesma
+família. Chegando, é somar dois `@font-face` em `css/theme-flamboyant.css` e
+devolver `--fl-w-regular` para 400 e `--fl-w-semibold` para 600. Nada mais muda.
+
+**Conferir sempre em** `docs/fontproof.html` (com o servidor no ar,
+`http://127.0.0.1:8791/docs/fontproof.html`). A página compõe o texto real da
+interface e mede glifo a glifo. Enquanto disser "ausente(s)", a fonte não está
+pronta para a mesa.
+
+**Corpos de texto.** Foram calibrados contra o PSD medindo altura de caixa alta,
+não escolhidos a olho — a Utile tem caixa alta menor que a Helvetica em relação
+ao corpo, e os valores herdados do proxy saíam todos pequenos. Estado atual,
+com a Utile no ar (PSD vs interface, em px):
+
+| elemento | PSD | interface |
+|---|---|---|
+| aba de ambiente | 18 | 17 |
+| stepper | 18 | 17 |
+| rótulo do painel | 17 | 16 |
+| rótulo inferior | 13 | 14 |
+| título da torre | 29 | 31 |
+| pill / VOLTAR | 14 | 13 |
+
+Os centros verticais batem exatamente. Se os pesos Regular/Semibold entrarem,
+vale refazer essa medição — a métrica muda com o peso.
 
 ### 4.3 Mídia — 152 arquivos
 

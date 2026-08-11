@@ -24,24 +24,37 @@
    ─────────────────────────────────────────────────────────────── */
 
 /* ═══ Utile — a fonte do PSD ═════════════════════════════════════════
-   Quando os arquivos chegarem: soltar os .otf em `css/fonts/utile/`,
-   descomentar este bloco e pronto. As famílias já estão declaradas com
-   'Utile' em primeiro lugar nos tokens, então nada mais muda.
-   Self-host é obrigatório — a mesa roda offline, sem Typekit.
+   Arquivos fornecidos pelo cliente (Utile, de Sibylle Hagmann). Cobertura de
+   caracteres completa: 524 glifos, todos os acentos, `|`, `²`. Self-host,
+   como tem de ser — a mesa roda offline.
+
+   ⚠ Só chegaram DOIS pesos, e são justamente os dois que o PSD não usa:
+   Light (300) e Bold (700). O desenho é composto em Regular (400) e
+   Semibold (600). Medindo a espessura de haste com a altura de caixa alta
+   igualada em 17px:
+
+       PSD (o desenho)     2,0 px
+       Utile Light         1,0 px   ← metade
+       Utile Bold          4,0 px   ← o dobro
+       Helvetica Neue      2,0 px
+
+   Ou seja: nenhum dos dois bate com o peso do desenho. O mapeamento abaixo
+   é o melhor arranjo possível com o que existe — Light no texto corrente e
+   Bold no destaque —, mas o texto corrente sai mais leve que no PSD.
+
+   PARA FICAR CERTO: pedir ao cliente os pesos Regular (400) e Semibold (600)
+   da mesma família. Chegando, é só somar dois @font-face aqui e devolver
+   --fl-w-regular a 400 e --fl-w-semibold a 600, lá embaixo.
+   Confira sempre em `docs/fontproof.html`. */
 
 @font-face {
-  font-family: 'Utile'; font-style: normal; font-weight: 400; font-display: swap;
-  src: url('fonts/utile/Utile-Regular.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Utile'; font-style: normal; font-weight: 600; font-display: swap;
-  src: url('fonts/utile/Utile-Semibold.otf') format('opentype');
+  font-family: 'Utile'; font-style: normal; font-weight: 300; font-display: swap;
+  src: url('fonts/utile/Utile-Light.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Utile'; font-style: normal; font-weight: 700; font-display: swap;
-  src: url('fonts/utile/Utile-Bold.otf') format('opentype');
+  src: url('fonts/utile/Utile-Bold.ttf') format('truetype');
 }
-*/
 
 :root {
   /* ───── Superfície Flamboyant (amostrada de mesa-atualizacao-sala-final.psd) ── */
@@ -80,8 +93,11 @@
   --fl-font-display: 'Utile', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fl-font-label:   'Utile', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-  --fl-w-regular:   400;   /* rótulos de pill, abas inativas               */
-  --fl-w-semibold:  600;   /* aba ativa, rótulo inferior                   */
+  /* Os pesos apontam para o que a Utile fornecida realmente tem: 300 e 700.
+     Quando chegarem o Regular e o Semibold, voltar para 400 e 600 — é a
+     única mudança necessária. */
+  --fl-w-regular:   300;   /* rótulos de pill, abas inativas   → Utile Light */
+  --fl-w-semibold:  700;   /* aba ativa, rótulo inferior       → Utile Bold  */
   --fl-w-bold:      700;
 
   --fl-track-title: 0.02em;

@@ -76,10 +76,9 @@ body[data-kiosk] * { cursor: none !important; }
 
 /* ═══ Peças compartilhadas ════════════════════════════════════════ */
 
-/* O wordmark é máscara, não fonte: `assets/brand/wordmark.png` recortando
-   a cor corrente. É o que permite o mesmo arquivo sair branco no vinho e
-   vinho no fundo claro do Le Club Lacoste — e contorna a Utile, que ainda
-   não chegou. */
+/* O wordmark é máscara, não fonte: `assets/brand/wordmark.png` recortando a
+   cor corrente. É o que permite o mesmo arquivo sair branco no vinho e vinho
+   no fundo claro do Le Club Lacoste, sem gerar dois arquivos. */
 .wordmark,
 .side-wordmark__mark {
   background-color: currentColor;
@@ -104,7 +103,7 @@ body[data-kiosk] * { cursor: none !important; }
   padding: 0 2rem;
   font-family: var(--fl-font-label);
   font-weight: var(--fl-w-regular);
-  font-size: 1.4rem;
+  font-size: 1.95rem;
   letter-spacing: var(--fl-track-label);
   text-transform: uppercase;
   color: var(--fl-fg-quiet);
@@ -215,7 +214,7 @@ body[data-kiosk] * { cursor: none !important; }
   margin-top: 65.2rem;
   font-family: var(--fl-font-display);
   font-weight: var(--fl-w-regular);
-  font-size: 2.9rem;
+  font-size: 2.35rem;
   line-height: 1;
   letter-spacing: var(--fl-track-title);
   text-transform: uppercase;
@@ -293,12 +292,13 @@ body[data-kiosk] * { cursor: none !important; }
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  margin-top: -0.3rem;   /* assenta a mancha do texto na linha do PSD */
   display: flex;
   align-items: baseline;
   gap: 1.4rem;
   max-width: 132rem;
   white-space: nowrap;
-  font-size: clamp(1.4rem, 1.8rem, 1.8rem);
+  font-size: 2.3rem;
   letter-spacing: var(--fl-track-title);
   color: var(--fl-fg);
 }
@@ -346,7 +346,7 @@ body[data-kiosk] * { cursor: none !important; }
 }
 
 .stepper__label {
-  font-size: 1.8rem;
+  font-size: 2.3rem;
   letter-spacing: var(--fl-track-title);
   text-transform: uppercase;
   white-space: nowrap;
@@ -419,13 +419,14 @@ body[data-kiosk] * { cursor: none !important; }
 .pane__video { object-fit: contain; background: var(--fl-ink); }
 
 /* Rótulo do painel, no topo, sobre a mídia — "IMAGENS GERAIS" / "PLANTA
-   DAS IMGS" (y=276 no PSD, ou seja 4rem abaixo do topo do painel). */
+   DAS IMGS". No PSD o texto ocupa y 276..292; o valor abaixo é ajustado para
+   que a mancha caia nesse intervalo, não o topo da caixa de linha. */
 .pane__label {
   position: absolute;
   left: 0; right: 0;
-  top: 4rem;
+  top: 3rem;
   text-align: center;
-  font-size: 1.7rem;
+  font-size: 2.4rem;
   letter-spacing: var(--fl-track-title);
   text-transform: uppercase;
   color: var(--fl-white);
@@ -442,7 +443,7 @@ body[data-kiosk] * { cursor: none !important; }
   background: var(--fl-media);
 }
 .pane__placeholder-label {
-  font-size: 1.4rem;
+  font-size: 1.9rem;
   letter-spacing: var(--fl-track-label);
   text-transform: uppercase;
   color: var(--fl-white);
@@ -478,8 +479,8 @@ body[data-kiosk] * { cursor: none !important; }
 .viewer__caption {
   position: absolute;
   left: 22.1rem;
-  top: 88.5rem;
-  height: 20rem;       /* centro em 98.5rem */
+  top: 88.2rem;
+  height: 20rem;       /* centro em 98.2rem */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -500,7 +501,7 @@ body[data-kiosk] * { cursor: none !important; }
   flex-direction: column;
   justify-content: center;
   padding: 0.9rem 0;   /* a régua sobra um pouco acima e abaixo do texto */
-  font-size: 1.3rem;
+  font-size: 1.9rem;
   font-weight: var(--fl-w-semibold);
   letter-spacing: var(--fl-track-label);
   text-transform: uppercase;
